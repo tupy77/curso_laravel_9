@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return view('home');
-});
+})->name('home'); // Lo del name es para darle un nombre a cada ruta para poder construir los enlaces
 
 Route::get('/blog', function(){
     $posts = [
@@ -14,17 +14,17 @@ Route::get('/blog', function(){
     ];
     return view('blog',['posts' => $posts]);
     // return ('Hola, blog');
-});
+})->name('blog');
 
 Route::get('/user', function(){
-    return ('Hola, user');
-});
+    return ('Hola, user')->name('blog');
+})->name('user');
 
 Route::get('/blog/{slug}', function($slug){
     $post = $slug;
     return view('post',['post' => $post]);
     // return $slug;
-});
+})->name('post');
 
 
 
