@@ -1,35 +1,18 @@
 <?php
 
-// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
-Route::get('/', function(){
-    return view('home');
-})->name('home'); // Lo del name es para darle un nombre a cada ruta para poder construir los enlaces
+Route::controller(PageController::class)->group(function () {     
 
-Route::get('/blog', function(){
-    $posts = [
-        ['id' => 1, 'title' => 'PHP', 'slug' => 'php'],
-        ['id' => 2, 'title' => 'Laravel', 'slug' => 'laravel']
-    ];
-    return view('blog',['posts' => $posts]);
-    // return ('Hola, blog');
-})->name('blog');
+    Route::get('/',           'home')->name('home');     
+    Route::get('/blog',        'blog')->name('blog'); 
+    Route::get('/blog/{slug}', 'post')->name('post'); 
 
-Route::get('/user', function(){
-    return ('Hola, user')->name('blog');
-})->name('user');
+});
 
-Route::get('/blog/{slug}', function($slug){
-    $post = $slug;
-    return view('post',['post' => $post]);
-    // return $slug;
-})->name('post');
-
-
-
-// Route::get('buscar', function(Request $request){
-//     return $request->all();
-// });
-/* /buscar?query=php */
-
+/** OTRA FORMA
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('blog', [PageController::class, 'blog'])->name('blog');
+Route::get('blog/{slug}', [PageController::class, 'post'])->name('post');
+*/
